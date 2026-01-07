@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>호랑이 VS 사자 - 최강의 맹수 대결</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background: #111;
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        /* 공통 섹션 스타일 */
+        .section {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: flex 0.3s ease;
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            z-index: -1;
+        }
+        
+        /* 호랑이 섹션 */
+        .tiger {
+            border-right: 2px solid #333;
+        }
+        .tiger::before {
+            background-image: url('https://i.pinimg.com/originals/78/ab/05/78ab05fc638f04fd2f79d94d244a283b.jpg');
+        }
+        .tiger:hover { flex: 1.2; }
+
+        /* 사자 섹션 */
+        .lion {
+            border-left: 2px solid #333;
+        }
+        .lion::before {
+            background-image: url('https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?auto=format&fit=crop&q=80');
+        }
+        .lion:hover { flex: 1.2; }
+
+        /* 텍스트 및 콘텐츠 */
+        h1 {
+            font-size: 4rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+        .tiger h1 { color: #ff9100; }
+        .lion h1 { color: #fdd835; }
+
+        .stats {
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            width: 80%;
+            max-width: 400px;
+            backdrop-filter: blur(5px);
+        }
+        .stats p {
+            font-size: 1.1rem;
+            margin: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+        }
+        .stats span {
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        /* 투표 버튼 */
+        .vote-btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+            color: #fff;
+        }
+        .tiger .vote-btn {
+            background: linear-gradient(45deg, #ff6d00, #ff9100);
+            box-shadow: 0 4px 15px rgba(255, 109, 0, 0.4);
+        }
+        .lion .vote-btn {
+            background: linear-gradient(45deg, #fbc02d, #fdd835);
+            box-shadow: 0 4px 15px rgba(251, 192, 45, 0.4);
+            color: #000;
+        }
+        .vote-btn:active { transform: scale(0.95); }
+        .count {
+            font-size: 2rem;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* 중앙 VS 배지 */
+        .vs-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #d50000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: 900;
+            font-style: italic;
+            border: 5px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            z-index: 10;
+        }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .section:hover { flex: 1; }
+            .vs-badge { width: 70px; height: 70px; font-size: 2rem; }
+            h1 { font-size: 2.5rem; }
+            .stats { width: 90%; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="section tiger">
+            <h1>TIGER</h1>
+            <div class="stats">
+                <p><span>서식지:</span> 침엽수림과 혼합림 (시베리아·극동 러시아)</p>
+                <p><span>스타일:</span> 은밀한 단독 사냥, 기습, 압도적인 일격</p>
+                <p><span>최대 체중:</span> 약 300kg</p>
+                <p><span>특징:</span> 최상위 포식자, 두꺼운 근육과 강력한 앞발, 뛰어난 생존력</p>
+            </div>
+            <button class="vote-btn" onclick="vote('tiger')">호랑이 투표</button>
+            <div class="count" id="tiger-count">0</div>
+        </div>
+    
+
+        <div class="vs-badge">VS</div>
+
+        <div class="section lion">
+            <h1>LION</h1>
+            <div class="stats">
+                <!-- 사자영역 -->
+            </div>
+            <button class="vote-btn" onclick="vote('lion')">사자 투표</button>
+            <div class="count" id="lion-count">0</div>
+        </div>
+    </div>
+
+    <script>
+        let tigerVotes = 0;
+        let lionVotes = 0;
+
+        function vote(animal) {
+            if (animal === 'tiger') {
+                tigerVotes++;
+                document.getElementById('tiger-count').innerText = tigerVotes.toLocaleString();
+            } else {
+                lionVotes++;
+                document.getElementById('lion-count').innerText = lionVotes.toLocaleString();
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- 
+https://github.com/kof1762-max/fight.git 
+cd fight
+
+-->

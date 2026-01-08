@@ -197,32 +197,48 @@
 
 
 <!-- 
-🔁 Git 협업 흐름 (팀장 ↔ 팀원 교차 설명)
+***** 팀장 설정 및 명령어 *****
 
-[팀장] GitHub 저장소 생성
-협업을 시작하려면 먼저 공용 공간이 필요합니다.
+GitHub에서 할 일(명령어 아님)
+Repository 생성 # 팀 공용 저장소 만들기
+Settings → Collaborators → 윤태님 초대             # 팀원이 push 가능하게 권한 부여
 
-1️⃣팀장이 할 일 (GitHub 웹)
-
-GitHub 로그인 -> New Repository 생성 -> 이름 설정 (예: team-git) **Public** 선택
-📌 이 저장소가 팀의 기준점
-
-
-2️⃣ [팀장 → 팀원] 협업 권한 부여
-
-저장소를 만들었다고 끝이 아닙니다. 팀원은 아직 아무 것도 못 합니다.
-
-팀장이 할 일
-Repository → Settings → Collaborators → 팀원 초대
+cd C:\Users\admin\Desktop\fight_project          # 작업 폴더로 이동(원하는 위치)
+git clone https://github.com/계정/저장소이름.git    # 원격 저장소를 내 PC로 복제
+cd 저장소이름                                      # 저장소 폴더로 이동
 
 
-3️⃣ [팀원] 협업 초대 수락
 
-권한을 받아야 GitHub에 코드를 올릴 수 있습니다.
+git status                                       # 변경/추가된 파일 확인
+git add .                                        # 업로드할 파일 전부 스테이징
+git commit -m "Initial commit"                   # 기준 커밋(프로젝트 출발점) 생성
+git push origin main                             # GitHub main으로 업로드(처음엔 브라우저 인증 뜰 수 있음)
 
-팀원이 할 일
-GitHub 알림 또는 이메일 확인 → Accept invitation 클릭
-📌 이걸 안 하면 git push 시 403 에러
+git pull origin main                             # 최신 상태로 동기화
+git log --oneline                                # 되돌릴 커밋 해시 확인
+git revert <커밋해시>                             # 해당 커밋을 취소하는 새 커밋 생성(기록 남기며 되돌림)
+git push origin main                             # 되돌림 결과를 GitHub에 반영
+
+
+***** 팀원 설정 및 명령어 *****
+
+GitHub에서 할 일(명령어 아님)
+팀장 초대 수락(Accept invitation)                   # 수락해야 push 권한 생김
+cd C:\Users\admin\Desktop\fight_project           # 작업 폴더로 이동
+git clone https://github.com/계정/저장소이름.git     # 팀 저장소를 내 PC로 복제
+cd 저장소이름                                       # 저장소 폴더로 이동
+
+git pull origin main                             # 작업 시작 전 최신 코드 받기(충돌 예방)
+
+# (작업) lion.html 수정                           # 팀원 담당 영역만 수정
+
+git status                                       # 수정된 파일 확인
+git add lion.html                                # lion.html만 스테이징(이번 커밋에 포함)
+git commit -m "Update lion section"              # 수정 기록(커밋) 생성
+git push origin main                             # GitHub main으로 업로드(권한 있어야 성공)
+
+
+
 
 
 https://github.com/kof1762-max/fight.git 
